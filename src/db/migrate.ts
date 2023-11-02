@@ -4,7 +4,7 @@ import { createConnection } from "mysql2";
 import "dotenv/config";
 
 const connection = createConnection({
-  password: "AIy7X`1`|uwAQJ5|@HXw",
+  password: "",
   host: "laureanoliva.com",
   user: "u677421159_laucha54321",
   database: "u677421159_itFinal",
