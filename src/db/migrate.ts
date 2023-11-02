@@ -1,13 +1,17 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import { migrate } from "drizzle-orm/mysql2/migrator";
 import { createConnection } from "mysql2";
-import "dotenv/config";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+console.log(process.env.DATABASE_PASSWORD);
 
 const connection = createConnection({
-  password: "AIy7X`1`|uwAQJ5|@HXw",
-  host: "laureanoliva.com",
-  user: "u677421159_laucha54321",
-  database: "u677421159_itFinal",
+  password: process.env.DATABASE_PASSWORD,
+  host: process.env.DATABASE_HOST,
+  user: process.env.DATABASE_USER,
+  database: process.env.DATABASE,
   port: 3306,
 });
 const db = drizzle(connection);
