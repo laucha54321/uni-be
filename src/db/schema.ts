@@ -4,8 +4,9 @@ import { mysqlTable, serial, int, varchar, text } from "drizzle-orm/mysql-core";
 export const personas = mysqlTable("personas", {
   id: varchar("id", { length: 36 }).primaryKey().notNull(),
   nombres: varchar("nombres", { length: 100 }),
-  dni: varchar("dni", { length: 8 }),
+  dni: varchar("dni", { length: 8 }).unique(),
   hash: varchar("hash", { length: 256 }),
+  email: varchar("email", { length: 256 }),
 });
 
 export const personasRelations = relations(personas, ({ many }) => ({
