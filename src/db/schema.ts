@@ -1,5 +1,6 @@
 import { relations } from "drizzle-orm";
-import { mysqlTable, serial, int, varchar, text } from "drizzle-orm/mysql-core";
+import { mysqlTable, varchar, text } from "drizzle-orm/mysql-core";
+import { createInsertSchema, createSelectSchema } from "drizzle-typebox";
 
 export const personas = mysqlTable("personas", {
   id: varchar("id", { length: 36 }).primaryKey().notNull(),
@@ -8,6 +9,8 @@ export const personas = mysqlTable("personas", {
   hash: varchar("hash", { length: 256 }),
   email: varchar("email", { length: 256 }),
 });
+
+export const insertPersonasSchema = createInsertSchema(personas);
 
 export const personasRelations = relations(personas, ({ many }) => ({
   cursoPersona: many(cursoPersona),
