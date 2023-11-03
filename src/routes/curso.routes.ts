@@ -1,11 +1,20 @@
 import * as fastify from "fastify";
+import { insertCursosSchema } from "../db/schema/curso.schema";
+import { Value } from "@sinclair/typebox/value";
+import { cursoInsert } from "../db/functions/curso.function";
 
 async function router(app: fastify.FastifyInstance) {
   app.get("/", async () => {
     return { hello: "curso Router" };
   });
-  app.post("/", async () => {
-    return { hello: "curso Router" };
+  app.post("/", async (request, reply) => {
+    if (Value.Check(insertCursosSchema, request.body)) {
+      const result = cursoInsert(request.body);
+      return result;
+    } else {
+      reply.code(400);
+      return { error: "Formato de Datos Incorrecto" };
+    }
   });
   app.patch("/", async () => {
     return { hello: "curso Router" };

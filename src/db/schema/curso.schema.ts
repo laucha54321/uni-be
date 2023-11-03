@@ -6,3 +6,5 @@ export const cursos = mysqlTable("curso", {
   nombre: varchar("nombre", { length: 100 }),
   descripcion: text("descripcion"),
 });
+
+export const insertCursosSchema = createInsertSchema(cursos);

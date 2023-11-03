@@ -15,6 +15,8 @@ export const notas = mysqlTable("notas", {
     .references(() => cursos.id),
 });
 
+export const insertNotasSchema = createInsertSchema(notas);
+
 export const notasRelations = relations(notas, ({ one }) => ({
   personas: one(personas, {
     fields: [notas.id_persona],

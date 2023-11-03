@@ -15,6 +15,8 @@ export const cursoPersona = mysqlTable("cursoPersona", {
   categoria: varchar("categoria", { length: 3 }),
 });
 
+export const insertCursoPersonaSchema = createInsertSchema(cursoPersona);
+
 export const cursoPersonaRelations = relations(cursoPersona, ({ one }) => ({
   personas: one(personas, {
     fields: [cursoPersona.id_persona],
