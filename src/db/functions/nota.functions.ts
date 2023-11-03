@@ -1,5 +1,6 @@
 import { db } from "../client";
 import { notas } from "../schema/notas.schema";
+import crypto from "crypto";
 
 export const notaInsert = async (aux: any) => {
   aux = {

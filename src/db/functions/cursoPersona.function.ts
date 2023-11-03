@@ -1,5 +1,6 @@
 import { db } from "../client";
 import { cursoPersona } from "../schema/cursoPersona.schema";
+import crypto from "crypto";
 
 export const cursoPersonaInsert = async (aux: any) => {
   aux = {
