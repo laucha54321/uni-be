@@ -9,7 +9,7 @@ export const personas = mysqlTable("personas", {
   nombres: varchar("nombres", { length: 100 }).notNull(),
   dni: varchar("dni", { length: 8 }).unique().notNull(),
   hash: varchar("hash", { length: 256 }).notNull(),
-  email: varchar("email", { length: 256 }).notNull(),
+  email: varchar("email", { length: 256 }).unique().notNull(),
 });
 
 export const insertPersonasSchema = createInsertSchema(personas);

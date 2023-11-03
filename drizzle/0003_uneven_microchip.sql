@@ -1,0 +1,1 @@
+ALTER TABLE `personas` ADD CONSTRAINT `personas_email_unique` UNIQUE(`email`);
