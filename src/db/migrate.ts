@@ -5,8 +5,6 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-console.log(process.env.DATABASE_PASSWORD);
-
 const connection = createConnection({
   password: process.env.DATABASE_PASSWORD,
   host: process.env.DATABASE_HOST,

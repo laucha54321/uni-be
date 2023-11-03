@@ -1,10 +1,10 @@
 import * as fastify from "fastify";
 
-import authRouter from "./auth";
-import cursoRouter from "./curso";
-import cursoPersonaRouter from "./cursoPersona";
-import notaRouter from "./nota";
-import personaRouter from "./persona";
+import authRouter from "./auth.routes";
+import cursoRouter from "./curso.routes";
+import cursoPersonaRouter from "./cursoPersona.routes";
+import notaRouter from "./nota.routes";
+import personaRouter from "./persona.routes";
 
 async function router(app: fastify.FastifyInstance) {
   app.register(authRouter, {
