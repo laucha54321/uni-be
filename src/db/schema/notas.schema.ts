@@ -15,6 +15,7 @@ export const notas = mysqlTable("notas", {
     .notNull()
     .references(() => cursos.id),
   calificacion: real("calificacion"),
+  descripcion: text("descripcion"),
 });
 
 export const insertNotasSchema = createInsertSchema(notas, {

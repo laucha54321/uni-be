@@ -1,0 +1,1 @@
+ALTER TABLE `notas` ADD `descripcion` text;

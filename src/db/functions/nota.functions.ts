@@ -7,6 +7,8 @@ export const notaInsert = async (aux: any) => {
     id: crypto.randomUUID(),
     id_curso: aux.id_curso,
     id_persona: aux.id_persona,
+    calificacion: aux.calificacion,
+    descripcion: aux.descripcion,
   };
 
   const result = await db.insert(notas).values(aux);
