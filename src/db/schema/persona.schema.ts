@@ -3,6 +3,7 @@ import { mysqlTable, varchar, text } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-typebox";
 
 import { cursoPersona } from "./cursoPersona.schema";
+import { Optional, Type } from "@sinclair/typebox";
 
 export const personas = mysqlTable("personas", {
   id: varchar("id", { length: 36 }).primaryKey().notNull(),

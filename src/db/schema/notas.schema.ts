@@ -1,5 +1,5 @@
 import { relations } from "drizzle-orm";
-import { mysqlTable, varchar, text } from "drizzle-orm/mysql-core";
+import { mysqlTable, varchar, text, real } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-typebox";
 
 import { personas } from "./persona.schema";
@@ -13,6 +13,7 @@ export const notas = mysqlTable("notas", {
   id_curso: varchar("id_curso", { length: 36 })
     .notNull()
     .references(() => cursos.id),
+  calificacion: real("calificacion"),
 });
 
 export const insertNotasSchema = createInsertSchema(notas);

@@ -4,21 +4,27 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index.ts",
+    "start": "nodemon src/index.ts",
     "studio": "npx drizzle-kit studio",
+    "dev": "concurrently \"npm run start\" \"npm run studio\"",
     "migration:generate": "drizzle-kit generate:mysql --schema=./src/db/schema/*",
     "migration:push": "node -r esbuild-register src/db/migrate.ts"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@sinclair/typebox": "^0.31.22",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
+    "drizzle-typebox": "^0.1.1",
     "fastify": "^4.24.3",
     "mysql2": "^3.6.2"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.1",
     "@types/node": "^20.8.10",
+    "concurrently": "^8.2.2",
     "drizzle-kit": "^0.19.13",
     "nodemon": "^3.0.1",
     "pino-pretty": "^10.2.3",
