@@ -3,6 +3,7 @@ import { mysqlTable, varchar, text } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-typebox";
 import { cursos } from "./curso.schema";
 import { personas } from "./persona.schema";
+import { Optional, Type } from "@sinclair/typebox";
 
 export const cursoPersona = mysqlTable("cursoPersona", {
   id: varchar("id", { length: 36 }).primaryKey().notNull(),
@@ -15,7 +16,9 @@ export const cursoPersona = mysqlTable("cursoPersona", {
   categoria: varchar("categoria", { length: 3 }),
 });
 
-export const insertCursoPersonaSchema = createInsertSchema(cursoPersona);
+export const insertCursoPersonaSchema = createInsertSchema(cursoPersona, {
+  id: Type.Optional(Type.String()),
+});
 
 export const cursoPersonaRelations = relations(cursoPersona, ({ one }) => ({
   personas: one(personas, {

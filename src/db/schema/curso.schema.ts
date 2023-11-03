@@ -1,5 +1,6 @@
 import { mysqlTable, varchar, text } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-typebox";
+import { Optional, Type } from "@sinclair/typebox";
 
 export const cursos = mysqlTable("curso", {
   id: varchar("id", { length: 36 }).primaryKey().notNull(),
@@ -7,4 +8,6 @@ export const cursos = mysqlTable("curso", {
   descripcion: text("descripcion"),
 });
 
-export const insertCursosSchema = createInsertSchema(cursos);
+export const insertCursosSchema = createInsertSchema(cursos, {
+  id: Type.Optional(Type.String()),
+});

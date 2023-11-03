@@ -1,6 +1,7 @@
 import { relations } from "drizzle-orm";
 import { mysqlTable, varchar, text, real } from "drizzle-orm/mysql-core";
 import { createInsertSchema } from "drizzle-typebox";
+import { Optional, Type } from "@sinclair/typebox";
 
 import { personas } from "./persona.schema";
 import { cursos } from "./curso.schema";
@@ -16,7 +17,9 @@ export const notas = mysqlTable("notas", {
   calificacion: real("calificacion"),
 });
 
-export const insertNotasSchema = createInsertSchema(notas);
+export const insertNotasSchema = createInsertSchema(notas, {
+  id: Type.Optional(Type.String()),
+});
 
 export const notasRelations = relations(notas, ({ one }) => ({
   personas: one(personas, {

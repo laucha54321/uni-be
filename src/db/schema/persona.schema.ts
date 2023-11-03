@@ -13,7 +13,9 @@ export const personas = mysqlTable("personas", {
   email: varchar("email", { length: 256 }).unique().notNull(),
 });
 
-export const insertPersonasSchema = createInsertSchema(personas);
+export const insertPersonasSchema = createInsertSchema(personas, {
+  id: Type.Optional(Type.String()),
+});
 
 export const personasRelations = relations(personas, ({ many }) => ({
   cursoPersona: many(cursoPersona),
