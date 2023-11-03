@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon src/index.ts",
+    "studio": "npx drizzle-kit studio",
     "migration:generate": "drizzle-kit generate:mysql --schema=./src/db/schema.ts",
     "migration:push": "node -r esbuild-register src/db/migrate.ts"
   },
