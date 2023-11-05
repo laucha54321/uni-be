@@ -1,11 +1,11 @@
 import * as fastify from "fastify";
 import { insertCursosSchema } from "../db/schema/curso.schema";
 import { Value } from "@sinclair/typebox/value";
-import { cursoInsert } from "../db/functions/curso.function";
+import { cursoInsert, cursoGetAll } from "../db/functions/curso.function";
 
 async function router(app: fastify.FastifyInstance) {
   app.get("/", async () => {
-    return { hello: "curso Router" };
+    return cursoGetAll();
   });
   app.post("/", async (request, reply) => {
     if (Value.Check(insertCursosSchema, request.body)) {

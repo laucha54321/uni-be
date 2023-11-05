@@ -12,3 +12,8 @@ export const cursoInsert = async (aux: any) => {
   const result = await db.insert(cursos).values(aux);
   return result;
 };
+
+export const cursoGetAll = async () => {
+  const result = await db.select().from(cursos);
+  return result;
+};
