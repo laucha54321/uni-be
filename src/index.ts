@@ -1,5 +1,8 @@
 import { fastify } from "fastify";
-import router from "./routes/_main";
+import router from "./routes/main";
+import errorRouter from "./routes/errorRouter"
+
+
 
 const app = fastify({
   logger: {
@@ -10,6 +13,7 @@ const app = fastify({
 });
 
 app.register(router);
+app.register(errorRouter);
 
 const start = async () => {
   try {

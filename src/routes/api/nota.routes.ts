@@ -1,15 +1,15 @@
 import * as fastify from "fastify";
-import { personaInsert } from "../db/functions/persona.functions";
-import { insertPersonasSchema } from "../db/schema/persona.schema";
+import { insertNotasSchema } from "../../db/schema/notas.schema";
+import { notaInsert } from "../../db/functions/nota.functions";
 import { Value } from "@sinclair/typebox/value";
 
 async function router(app: fastify.FastifyInstance) {
   app.get("/", async () => {
-    return { hello: "persona Router" };
+    return { hello: "nota Router" };
   });
   app.post("/", async (request, reply) => {
-    if (Value.Check(insertPersonasSchema, request.body)) {
-      const result = personaInsert(request.body);
+    if (Value.Check(insertNotasSchema, request.body)) {
+      const result = notaInsert(request.body);
       return result;
     } else {
       reply.code(400);
@@ -17,10 +17,10 @@ async function router(app: fastify.FastifyInstance) {
     }
   });
   app.patch("/", async () => {
-    return { hello: "persona Router" };
+    return { hello: "nota Router" };
   });
   app.delete("/", async () => {
-    return { hello: "persona Router" };
+    return { hello: "nota Router" };
   });
 }
 
