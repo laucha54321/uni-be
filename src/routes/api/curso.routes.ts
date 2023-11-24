@@ -2,6 +2,7 @@ import * as fastify from "fastify";
 import { insertCursosSchema } from "../../db/schema/curso.schema";
 import { Value } from "@sinclair/typebox/value";
 import { cursoInsert, cursoGetAll } from "../../db/functions/curso.function";
+import errorHandler from "../errorHandler";
 
 async function router(app: fastify.FastifyInstance) {
   app.get("/", async () => {
@@ -12,8 +13,7 @@ async function router(app: fastify.FastifyInstance) {
       const result = cursoInsert(request.body);
       return result;
     } else {
-      reply.code(400);
-      return { error: "Formato de Datos Incorrecto" };
+      reply.code(400).send();
     }
   });
   app.patch("/", async () => {

@@ -2,6 +2,7 @@ import * as fastify from "fastify";
 import { insertNotasSchema } from "../../db/schema/notas.schema";
 import { notaInsert } from "../../db/functions/nota.functions";
 import { Value } from "@sinclair/typebox/value";
+import errorHandler from "../errorHandler";
 
 async function router(app: fastify.FastifyInstance) {
   app.get("/", async () => {
@@ -21,6 +22,15 @@ async function router(app: fastify.FastifyInstance) {
   });
   app.delete("/", async () => {
     return { hello: "nota Router" };
+  });
+  app.addHook("onSend", (request,reply,payload,done) =>{
+    if(reply.statusCode>=300){
+      const err = null
+      const response = errorHandler(reply.statusCode,"Nota");
+      done(err, response.error)
+    }else{
+      done()
+    }
   });
 }
 

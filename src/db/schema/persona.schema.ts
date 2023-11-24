@@ -13,11 +13,16 @@ export const personas = mysqlTable("personas", {
   email: varchar("email", { length: 256 }).unique().notNull(),
 });
 
-export const insertPersonasSchema = createInsertSchema(personas, {
-  id: Type.Optional(Type.String()),
+export const insertPersonasSchema = createInsertSchema(personas);
+
+export const insertPersonasSchemaNoID = createInsertSchema(personas,{
+  id:Type.Optional(Type.String()),
 });
 
-export const selectPersonasSchema = createSelectSchema(personas);
+
+export const selectPersonasSchema = createSelectSchema(personas, {
+  hash:Type.Optional(Type.String()),
+});
 
 
 export const personasRelations = relations(personas, ({ many }) => ({

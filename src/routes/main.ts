@@ -5,9 +5,8 @@ import cursoRouter from "./api/curso.routes";
 import cursoPersonaRouter from "./api/cursoPersona.routes";
 import notaRouter from "./api/nota.routes";
 import personaRouter from "./api/persona.routes";
-import errorRouter from "./errorRouter";
 
-async function router(app: fastify.FastifyInstance) {
+async function router(app: fastify.FastifyInstance, opts:any, done:any) {
   app.register(authRouter, {
     prefix: "/auth",
   });
@@ -23,6 +22,8 @@ async function router(app: fastify.FastifyInstance) {
   app.register(personaRouter, {
     prefix: "/persona",
   });
+
+  done()
 }
 
 

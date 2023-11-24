@@ -1,7 +1,6 @@
 import { fastify } from "fastify";
 import router from "./routes/main";
-import errorRouter from "./routes/errorRouter"
-
+import { TypeBoxTypeProvider } from '@fastify/type-provider-typebox'
 
 
 const app = fastify({
@@ -10,10 +9,9 @@ const app = fastify({
       target: "pino-pretty",
     },
   },
-});
+}).withTypeProvider<TypeBoxTypeProvider>();
 
 app.register(router);
-app.register(errorRouter);
 
 const start = async () => {
   try {
