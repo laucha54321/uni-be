@@ -1,5 +1,5 @@
 import * as fastify from "fastify";
-import { personaInsert, personaSelect, personaUpdate } from "../../db/functions/persona.functions";
+import { personaDelete, personaInsert, personaSelect, personaUpdate } from "../../db/functions/persona.functions";
 import { insertPersonasSchemaNoID, selectPersonasSchema} from "../../db/schema/persona.schema";
 import { Value } from "@sinclair/typebox/value";
 import { Type } from "@sinclair/typebox";
@@ -24,7 +24,7 @@ const router = async (app: fastify.FastifyInstance,opts:any,done:any) => {
     if(Value.Check(id,request.params)){
       const result = await personaSelect(request.params.id)
       if(result.length>0){
-        return result
+        return result[0]
       }else{
         reply.code(404).send();
       }
@@ -56,7 +56,11 @@ const router = async (app: fastify.FastifyInstance,opts:any,done:any) => {
     if(Value.Check(selectPersonasSchema,request.body) && Value.Check(id,request.params)){
       if(request.params.id === request.body.id){
         const result = await personaUpdate(request.body)
-        return result
+        if(result[0]['affectedRows']>0){
+          return result[0]
+        }else{
+          reply.code(404).send()
+        }
       }else{
         reply.code(400).send()
       }
@@ -74,7 +78,7 @@ const router = async (app: fastify.FastifyInstance,opts:any,done:any) => {
   async (request,reply) => {
     if(Value.Check(selectPersonasSchema,request.body) && Value.Check(id,request.params)){
       if(request.params.id === request.body.id){
-        const result = await personaUpdate(request.body)
+        const result = await personaDelete(request.body.id)
         return result
       }else{
         reply.code(400).send()

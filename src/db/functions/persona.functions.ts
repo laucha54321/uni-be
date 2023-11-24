@@ -44,6 +44,7 @@ export const personaUpdate = async(aux:selectPersonas)=>{
   return result
 }
 
-export const personaDelete = async(aux:selectPersonas)=>{
-  const result = await db.delete(personas).where(eq(personas.id,aux.id))
+export const personaDelete = async(id:string)=>{
+  const result = await db.delete(personas).where(eq(personas.id,id))
+  return result
 }
