@@ -17,7 +17,7 @@ type insertPersonaNoIDNoHash = Static<typeof insertPersonaNoIDNoHash>
 
 export const personaInsert = async (aux: insertPersonasNoID) => {
   const saveHash = await bcrypt.hash(aux.hash, 10);
-
+  
   aux = {
     id: crypto.randomUUID(),
     nombres: aux.nombres,
@@ -41,6 +41,10 @@ export const personaSelect = async(id:string)=>{
 }
 
 export const personaUpdate = async(aux:insertPersonaNoIDNoHash,id:string)=>{
+  //elimino el id porsilasdudas
+  delete aux.id;
+  delete aux.hash;
+
   const result = await db.update(personas).set(aux).where(eq(personas.id,id))
   return result
 }
