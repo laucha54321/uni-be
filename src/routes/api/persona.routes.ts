@@ -26,10 +26,10 @@ const router = async (app: fastify.FastifyInstance,opts:any,done:any) => {
       if(result.length>0){
         return result[0]
       }else{
-        reply.code(404).send();
+        reply.code(404).send({});
       }
     }else{
-      reply.code(400).send();
+      reply.code(400).send({});
     }
   });
 
@@ -44,7 +44,7 @@ const router = async (app: fastify.FastifyInstance,opts:any,done:any) => {
       const result = personaInsert(body);
       return result;
     } else {
-      reply.code(400);
+      reply.code(400).send({});
     }
   });
 
@@ -59,13 +59,13 @@ const router = async (app: fastify.FastifyInstance,opts:any,done:any) => {
         if(result[0]['affectedRows']>0){
           return result[0]
         }else{
-          reply.code(404).send()
+          reply.code(404).send({})
         }
       }else{
-        reply.code(400).send()
+        reply.code(400).send({})
       }
     }else{
-      reply.code(400).send()
+      reply.code(400).send({})
     }
   });
 
@@ -81,18 +81,20 @@ const router = async (app: fastify.FastifyInstance,opts:any,done:any) => {
         const result = await personaDelete(request.body.id)
         return result
       }else{
-        reply.code(400).send()
+        reply.code(400).send({})
       }
     }else{
-      reply.code(400).send()
+      reply.code(400).send({})
     }
   });
 
-  app.addHook("onSend", (request,reply,payload,done) =>{
+  // Para que llame a preSerialization tengo que hacer .send({}) xq si fuera un string o null
+  // no pasa por este hook a este hook.
+  app.addHook("preSerialization", (request,reply,payload,done) =>{
     if(reply.statusCode>=300){
       const err = null
       const response = errorHandler(reply.statusCode,"Persona");
-      done(err, response.error)
+      done(err, response)
     }else{
       done()
     }
