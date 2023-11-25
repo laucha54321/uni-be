@@ -1,0 +1,143 @@
+{
+	"info": {
+		"_postman_id": "70e8f544-c16b-4b30-9a32-b4a18e4a544d",
+		"name": "API App Universitaria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "21376738-70e8f544-c16b-4b30-9a32-b4a18e4a544d"
+	},
+	"item": [
+		{
+			"name": "Personas",
+			"item": [
+				{
+					"name": "Delete One",
+					"id": "df5a5344-56ea-4f30-be70-e75acab669ed",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"22989dfe-1aed-43d1-892a-8d87bf3158a4\",\n    \"nombres\": \"Pedro Picapiedra 2\",\n    \"dni\": \"12333999\",\n    \"email\": \"laucha@proton.me\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/persona/22989dfe-1aed-43d1-892a-8d87bf3158a4",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"persona",
+								"22989dfe-1aed-43d1-892a-8d87bf3158a4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert One",
+					"id": "ad4f972c-9708-4ea5-b2ec-7a57525d2d6f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"nombres\": \"Pedro\",\n  \"dni\": \"23455789\",\n  \"hash\": \"asdfasdf\",\n  \"email\": \"asdasd@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/persona",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"persona"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Select One",
+					"id": "76ae5c83-3368-4551-a26c-e0e85036b5f4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/persona/2fa7cb68-5582-42b9-9675-779c264755bd",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"persona",
+								"2fa7cb68-5582-42b9-9675-779c264755bd"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update One",
+					"id": "cbf44c3b-69a7-419d-ab50-109f7053891a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"2fa7cb68-5582-42b9-9675-779c264755b2\",\n    \"nombres\": \"Pedro\",\n    \"dni\": \"23455789\",\n    \"email\": \"asdasd@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/persona/2fa7cb68-5582-42b9-9675-779c264755b2",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"persona",
+								"2fa7cb68-5582-42b9-9675-779c264755b2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "daa41a67-4a94-4dbb-86f1-bd83295496fc"
+		}
+	]
+}
