@@ -5,6 +5,14 @@ import { createInsertSchema, createSelectSchema } from "drizzle-typebox";
 import { cursoPersona } from "./cursoPersona.schema";
 import { Optional, Type } from "@sinclair/typebox";
 
+
+export const id = Type.Object({
+  id:Type.String({
+    minLength:36,
+    maxLength:36
+  })
+})
+
 export const personas = mysqlTable("personas", {
   id: varchar("id", { length: 36 }).primaryKey().notNull(),
   nombres: varchar("nombres", { length: 100 }).notNull(),
@@ -15,13 +23,18 @@ export const personas = mysqlTable("personas", {
 
 export const insertPersonasSchema = createInsertSchema(personas);
 
+export const insertPersonaNoIDNoHash = createInsertSchema(personas,{
+  hash:Type.Optional(Type.String()),
+  id:Type.Optional(Type.String())
+})
+
 export const insertPersonasSchemaNoID = createInsertSchema(personas,{
   id:Type.Optional(Type.String()),
 });
 
 
 export const selectPersonasSchema = createSelectSchema(personas, {
-  hash:Type.Optional(Type.String()),
+  hash:Type.Optional(Type.String())
 });
 
 
