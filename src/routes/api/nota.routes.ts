@@ -22,11 +22,6 @@ async function router(app: fastify.FastifyInstance) {
     if (Value.Check(id, request.params)) {
       const result = await notaSelectOne(request.params.id);
       return result;
-      // if (result.length > 0) {
-      //   return result[0];
-      // } else {
-      //   reply.code(404).send(uri);
-      // }
     } else {
       reply.code(400).send(uri);
     }

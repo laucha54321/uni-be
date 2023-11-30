@@ -39,10 +39,17 @@ export const notaSelectOne = async (id: string) => {
       id: notas.id,
       calificacion: notas.calificacion,
       descripcion: notas.descripcion,
-      curso: cursos.nombre,
-      nombre: personas.nombres,
-      dni: personas.dni,
-      email: personas.email,
+      curso: {
+        id: cursos.id,
+        nombre: cursos.nombre,
+        descripcion: cursos.descripcion,
+      },
+      persona: {
+        id: personas.id,
+        nombre: personas.nombres,
+        dni: personas.dni,
+        email: personas.email,
+      },
     })
     .from(notas)
     .leftJoin(personas, eq(personas.id, notas.id_persona))
@@ -58,10 +65,17 @@ export const notaSelectPersona = async (id: string) => {
       id: notas.id,
       calificacion: notas.calificacion,
       descripcion: notas.descripcion,
-      curso: cursos.nombre,
-      nombre: personas.nombres,
-      dni: personas.dni,
-      email: personas.email,
+      curso: {
+        id: cursos.id,
+        nombre: cursos.nombre,
+        descripcion: cursos.descripcion,
+      },
+      persona: {
+        id: personas.id,
+        nombre: personas.nombres,
+        dni: personas.dni,
+        email: personas.email,
+      },
     })
     .from(notas)
     .leftJoin(personas, eq(personas.id, notas.id_persona))
