@@ -28,7 +28,7 @@ export const notaInsert = async (aux: insertNotaNoIDType) => {
   return result;
 };
 
-export const notaSelect = async (id: string) => {
+export const notaSelectOne = async (id: string) => {
   // const result = await db.query.notas.findMany({
   //   with: {
   //     personas: true,
@@ -49,6 +49,24 @@ export const notaSelect = async (id: string) => {
     .leftJoin(cursos, eq(cursos.id, notas.id_curso))
     .where(eq(notas.id, id));
   // const result = await db.select().from(notas).leftjoin();
+  return result;
+};
+
+export const notaSelectPersona = async (id: string) => {
+  const result = await db
+    .select({
+      id: notas.id,
+      calificacion: notas.calificacion,
+      descripcion: notas.descripcion,
+      curso: cursos.nombre,
+      nombre: personas.nombres,
+      dni: personas.dni,
+      email: personas.email,
+    })
+    .from(notas)
+    .leftJoin(personas, eq(personas.id, notas.id_persona))
+    .leftJoin(cursos, eq(cursos.id, notas.id_curso))
+    .where(eq(personas.id, id));
   return result;
 };
 

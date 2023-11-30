@@ -8,9 +8,10 @@ import {
 } from "../../db/schema/notas.schema";
 import {
   notaInsert,
-  notaSelect,
+  notaSelectOne,
   notaDelte,
   notaUpdate,
+  notaSelectPersona,
 } from "../../db/functions/nota.functions";
 import { Value } from "@sinclair/typebox/value";
 import { handler, uriType } from "../errorHandler";
@@ -19,7 +20,7 @@ async function router(app: fastify.FastifyInstance) {
   app.get("/:id", async (request, reply) => {
     const uri = { uri: "4a108bee-920a-488a-a21e-1fa1695cf11d" };
     if (Value.Check(id, request.params)) {
-      const result = await notaSelect(request.params.id);
+      const result = await notaSelectOne(request.params.id);
       return result;
       // if (result.length > 0) {
       //   return result[0];
@@ -30,6 +31,16 @@ async function router(app: fastify.FastifyInstance) {
       reply.code(400).send(uri);
     }
   });
+  app.get("/persona/:id", async (request, reply) => {
+    const uri = { uri: "" };
+    if (Value.Check(id, request.params)) {
+      const result = await notaSelectPersona(request.params.id);
+      return result;
+    } else {
+      reply.code(400).send(uri);
+    }
+  });
+
   app.post("/", async (request, reply) => {
     const uri = { uri: "c6f582dd-c403-43c6-9b29-fb48c8f72a2a" };
     if (Value.Check(insertNotasSchemaNoID, request.body)) {
