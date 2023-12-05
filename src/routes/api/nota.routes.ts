@@ -1,7 +1,5 @@
 import * as fastify from "fastify";
 import {
-  insertNotasSchema,
-  selectNotaSchema,
   id,
   insertNotasSchemaNoID,
   insertNotasSchemaNoIDs,
@@ -26,8 +24,9 @@ async function router(app: fastify.FastifyInstance) {
       reply.code(400).send(uri);
     }
   });
+
   app.get("/persona/:id", async (request, reply) => {
-    const uri = { uri: "" };
+    const uri = { uri: "ce034190-1592-4243-8ea6-20359abd6c53" };
     if (Value.Check(id, request.params)) {
       const result = await notaSelectPersona(request.params.id);
       return result;
