@@ -10,9 +10,9 @@ export const getToken = async (dni: string, constrasena: string) => {
   if (user.length > 0) {
     if (await bcrypt.compare(constrasena, user[0].hash)) {
       const token = jwt.sign(
-        user[0].id,
+        { id: user[0].id },
         process.env.ACCESS_TOKEN_SECRET + user[0].hash,
-        { expiresIn: "30s" }
+        { expiresIn: "1d" }
       );
       return { accessToken: token };
     } else {
