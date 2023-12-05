@@ -16,7 +16,7 @@ export const getToken = async (dni: string, constrasena: string) => {
       );
       return { accessToken: token };
     } else {
-      return 400;
+      return 401;
     }
   } else {
     return 404;

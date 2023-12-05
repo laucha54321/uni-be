@@ -2,6 +2,7 @@ import * as fastify from "fastify";
 import { getToken } from "../../db/functions/auth.function";
 import { Value } from "@sinclair/typebox/value";
 import { Type } from "@sinclair/typebox";
+import { handler, uriType } from "../errorHandler";
 
 const authSchema = Type.Object({
   dni: Type.String(),
@@ -16,7 +17,12 @@ async function router(app: fastify.FastifyInstance) {
     const uri = { uri: "" };
 
     if (Value.Check(authSchema, request.body)) {
-      return getToken(request.body.dni, request.body.contrasena);
+      const result = await getToken(request.body.dni, request.body.contrasena);
+      if (typeof result === "number") {
+        reply.code(result).send(uri);
+      } else {
+        return result;
+      }
     } else {
       reply.code(400).send(uri);
     }
@@ -26,6 +32,18 @@ async function router(app: fastify.FastifyInstance) {
   });
   app.delete("/", async () => {
     return { hello: "auth router" };
+  });
+  app.addHook("preSerialization", (request, reply, payload, done) => {
+    if (reply.statusCode >= 300) {
+      if (payload) {
+        const aux = payload as uriType;
+        const err = null;
+        const response = handler(reply.statusCode, "persona", aux.uri || "");
+        done(err, response);
+      }
+    } else {
+      done();
+    }
   });
 }
 
