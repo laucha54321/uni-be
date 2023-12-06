@@ -32,14 +32,16 @@ async function router(app: fastify.FastifyInstance) {
       const authHeader = request.headers["authorization"];
       const token = authHeader?.split(" ")[1];
       if (token) {
-        validateToken(token).then((aux) => {
-          if (Value.Check(tokenSchema, aux)) {
-            request.headers.userid = aux.id;
-            done();
-          } else {
-            reply.code(403).send(uri);
-          }
-        });
+        validateToken(token)
+          .then((aux) => {
+            if (Value.Check(tokenSchema, aux)) {
+              request.headers.userid = aux.id;
+              done();
+            } else {
+              reply.code(403).send(uri);
+            }
+          })
+          .catch((error) => console.log("Errorr:", error));
       } else {
         reply.code(403).send(uri);
       }
