@@ -22,6 +22,12 @@ export const handler = (statusCode: Number, title: string, uri?: string) => {
         code: statusCode,
         mensaje: "Para mas informacion: " + url + uri,
       };
+    case 403:
+      return {
+        error: "Error al autenticar en " + title + "",
+        code: statusCode,
+        mensaje: "Para mas informacion: " + url + uri,
+      };
     case 404:
       return {
         error: "No existe " + title,

@@ -2,7 +2,8 @@ import * as fastify from "fastify";
 import { insertCursosSchema, id } from "../../db/schema/curso.schema";
 import { Value } from "@sinclair/typebox/value";
 import { cursoInsert, cursoGetAll } from "../../db/functions/curso.function";
-import { handler, uriSchema, uriType } from "../errorHandler";
+import { handler, uriType } from "../errorHandler";
+
 async function router(app: fastify.FastifyInstance) {
   app.get("/", async () => {
     const uri = { uri: "" };

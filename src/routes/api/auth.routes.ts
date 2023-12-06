@@ -1,5 +1,5 @@
 import * as fastify from "fastify";
-import { getToken } from "../../db/functions/auth.function";
+import { getToken, validateToken } from "../../db/functions/auth.function";
 import { Value } from "@sinclair/typebox/value";
 import { Type } from "@sinclair/typebox";
 import { handler, uriType } from "../errorHandler";
@@ -10,9 +10,6 @@ const authSchema = Type.Object({
 });
 
 async function router(app: fastify.FastifyInstance) {
-  app.get("/", async () => {
-    return { hello: "auth router" };
-  });
   app.post("/", async (request, reply) => {
     const uri = { uri: "" };
 

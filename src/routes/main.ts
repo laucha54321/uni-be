@@ -6,7 +6,11 @@ import cursoPersonaRouter from "./api/cursoPersona.routes";
 import notaRouter from "./api/nota.routes";
 import personaRouter from "./api/persona.routes";
 
-async function router(app: fastify.FastifyInstance, opts:any, done:any) {
+import { Type } from "@sinclair/typebox";
+
+async function router(app: fastify.FastifyInstance, opts: any, done: any) {
+  app.decorateRequest("userid", null);
+
   app.register(authRouter, {
     prefix: "/auth",
   });
@@ -23,8 +27,7 @@ async function router(app: fastify.FastifyInstance, opts:any, done:any) {
     prefix: "/persona",
   });
 
-  done()
+  done();
 }
-
 
 export default router;

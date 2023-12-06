@@ -11,7 +11,7 @@ export const getToken = async (dni: string, constrasena: string) => {
     if (await bcrypt.compare(constrasena, user[0].hash)) {
       const token = jwt.sign(
         { id: user[0].id },
-        process.env.ACCESS_TOKEN_SECRET + user[0].hash,
+        process.env.ACCESS_TOKEN_SECRET!,
         { expiresIn: "1d" }
       );
       return { accessToken: token };
@@ -21,4 +21,9 @@ export const getToken = async (dni: string, constrasena: string) => {
   } else {
     return 404;
   }
+};
+
+export const validateToken = async (token: string) => {
+  const result = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!);
+  return result;
 };

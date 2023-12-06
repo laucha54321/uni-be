@@ -12,9 +12,41 @@ import {
   notaSelectPersona,
 } from "../../db/functions/nota.functions";
 import { Value } from "@sinclair/typebox/value";
+import { Type, Static } from "@sinclair/typebox";
 import { handler, uriType } from "../errorHandler";
 
+import { getToken, validateToken } from "../../db/functions/auth.function";
+
+const tokenSchema = Type.Object({
+  id: Type.String(),
+  iat: Type.Number(),
+  exp: Type.Number(),
+});
+
+type t = Static<typeof id>;
+
 async function router(app: fastify.FastifyInstance) {
+  app.addHook("onRequest", (request, reply, done) => {
+    const uri = { uri: "" };
+    if (request.headers["authorization"]) {
+      const authHeader = request.headers["authorization"];
+      const token = authHeader?.split(" ")[1];
+      if (token) {
+        validateToken(token).then((aux) => {
+          if (Value.Check(tokenSchema, aux)) {
+            request.headers.userid = aux.id;
+            done();
+          } else {
+            reply.code(403).send(uri);
+          }
+        });
+      } else {
+        reply.code(403).send(uri);
+      }
+    } else {
+      reply.code(403).send(uri);
+    }
+  });
   app.get("/:id", async (request, reply) => {
     const uri = { uri: "4a108bee-920a-488a-a21e-1fa1695cf11d" };
     if (Value.Check(id, request.params)) {
@@ -25,10 +57,11 @@ async function router(app: fastify.FastifyInstance) {
     }
   });
 
-  app.get("/persona/:id", async (request, reply) => {
+  app.get("/persona", async (request, reply) => {
     const uri = { uri: "ce034190-1592-4243-8ea6-20359abd6c53" };
-    if (Value.Check(id, request.params)) {
-      const result = await notaSelectPersona(request.params.id);
+    const aux = request.headers.userid as string;
+    if (Value.Check(id, { id: aux }) && aux !== undefined) {
+      const result = await notaSelectPersona(aux);
       return result;
     } else {
       reply.code(400).send(uri);
