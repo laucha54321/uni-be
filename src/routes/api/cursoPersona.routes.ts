@@ -9,14 +9,12 @@ import { handler, uriSchema, uriType } from "../errorHandler";
 import { cursoPersonaGetPersona } from "../../db/functions/cursoPersona.function";
 
 async function router(app: fastify.FastifyInstance) {
-  app.get("/", async () => {
+  app.get("/", async (request, reply) => {
     const uri = { uri: "" };
-    return { hello: "cursoPersona Router" };
-  });
-  app.get("/:id", async (request, reply) => {
-    const uri = { uri: "" };
-    if (Value.Check(id, request.params)) {
-      return cursoPersonaGetPersona(request.params.id);
+    const aux = request.headers.userid as string;
+    if (Value.Check(id, { id: aux })) {
+      const result = await cursoPersonaGetPersona(aux);
+      return result;
     } else {
       reply.code(400).send(uri);
     }
