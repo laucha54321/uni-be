@@ -1,6 +1,8 @@
 # Proyecto de Desarrolló de Software - BackEnd
 Desarrollo de una API con Node.js, Fastify y MariaDB: Gestión de Notas para Alumnos y Profesores.
 
+La API esta publicada en Postman: [link](https://documenter.getpostman.com/view/21376738/2s9YeD9DWL#)
+
 ## Formato - Base de Datos
 ```mermaid
 classDiagram
