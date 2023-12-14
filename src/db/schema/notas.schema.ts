@@ -1,10 +1,17 @@
 import { relations } from "drizzle-orm";
 import { mysqlTable, varchar, text, real } from "drizzle-orm/mysql-core";
-import { createInsertSchema } from "drizzle-typebox";
-import { Optional, Type } from "@sinclair/typebox";
+import { createInsertSchema, createSelectSchema } from "drizzle-typebox";
+import { Type } from "@sinclair/typebox";
 
 import { personas } from "./persona.schema";
 import { cursos } from "./curso.schema";
+
+export const id = Type.Object({
+  id: Type.String({
+    minLength: 36,
+    maxLength: 36,
+  }),
+});
 
 export const notas = mysqlTable("notas", {
   id: varchar("id", { length: 36 }).primaryKey().notNull(),
@@ -18,9 +25,18 @@ export const notas = mysqlTable("notas", {
   descripcion: text("descripcion"),
 });
 
-export const insertNotasSchema = createInsertSchema(notas, {
+export const insertNotasSchema = createInsertSchema(notas);
+
+export const insertNotasSchemaNoID = createInsertSchema(notas, {
   id: Type.Optional(Type.String()),
 });
+
+export const insertNotasSchemaNoIDs = createInsertSchema(notas, {
+  id_curso: Type.Optional(Type.String()),
+  id_persona: Type.Optional(Type.String()),
+});
+
+export const selectNotaSchema = createSelectSchema(notas);
 
 export const notasRelations = relations(notas, ({ one }) => ({
   personas: one(personas, {

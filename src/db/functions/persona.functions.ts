@@ -3,7 +3,7 @@ import { insertPersonasSchemaNoID, personas } from "../schema/persona.schema";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
 import { eq } from "drizzle-orm";
-import { selectPersonasSchema, insertPersonasSchema } from "../schema/persona.schema";
+import { selectPersonasSchema, insertPersonasSchema,insertPersonaNoIDNoHash } from "../schema/persona.schema";
 
 
 
@@ -13,10 +13,11 @@ type selectPersonas = Static<typeof selectPersonasSchema>
 
 type insertPersonas = Static<typeof insertPersonasSchema>
 type insertPersonasNoID = Static<typeof insertPersonasSchemaNoID>
+type insertPersonaNoIDNoHash = Static<typeof insertPersonaNoIDNoHash>
 
 export const personaInsert = async (aux: insertPersonasNoID) => {
   const saveHash = await bcrypt.hash(aux.hash, 10);
-
+  
   aux = {
     id: crypto.randomUUID(),
     nombres: aux.nombres,
@@ -39,8 +40,12 @@ export const personaSelect = async(id:string)=>{
   return result;
 }
 
-export const personaUpdate = async(aux:selectPersonas)=>{
-  const result = await db.update(personas).set(aux).where(eq(personas.id, aux.id))
+export const personaUpdate = async(aux:insertPersonaNoIDNoHash,id:string)=>{
+  //elimino el id porsilasdudas
+  delete aux.id;
+  delete aux.hash;
+
+  const result = await db.update(personas).set(aux).where(eq(personas.id,id))
   return result
 }
 

@@ -5,6 +5,13 @@ import { cursos } from "./curso.schema";
 import { personas } from "./persona.schema";
 import { Optional, Type } from "@sinclair/typebox";
 
+export const id = Type.Object({
+  id:Type.String({
+    minLength:36,
+    maxLength:36
+  })
+})
+
 export const cursoPersona = mysqlTable("cursoPersona", {
   id: varchar("id", { length: 36 }).primaryKey().notNull(),
   id_curso: varchar("id_curso", { length: 36 })

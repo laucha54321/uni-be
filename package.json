@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/cors": "^8.4.2",
     "@fastify/type-provider-typebox": "^3.5.0",
     "@sinclair/typebox": "^0.31.22",
     "bcrypt": "^5.1.1",
@@ -20,10 +21,12 @@
     "drizzle-orm": "^0.28.6",
     "drizzle-typebox": "^0.1.1",
     "fastify": "^4.24.3",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.6.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.5",
     "@types/node": "^20.8.10",
     "concurrently": "^8.2.2",
     "drizzle-kit": "^0.19.13",
