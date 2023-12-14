@@ -37,3 +37,10 @@ class personas{
   String email
 }
 ```
+## Librerias Utilizadas
+* [Fastify](https://fastify.dev/)
+* [DrizzleORM](https://orm.drizzle.team/)
+* [TypeBox](https://github.com/sinclairzx81/typebox)
+* [JsonWebToken](https://github.com/auth0/node-jsonwebtoken)
+* [Bcrypt](https://github.com/kelektiv/node.bcrypt.js)
+
