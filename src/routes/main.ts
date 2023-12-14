@@ -5,7 +5,7 @@ import cursoRouter from "./api/curso.routes";
 import cursoPersonaRouter from "./api/cursoPersona.routes";
 import notaRouter from "./api/nota.routes";
 import personaRouter from "./api/persona.routes";
-
+import profesorRouter from "./api/profesor.routes";
 import { validateToken } from "../db/functions/auth.function";
 import { Value } from "@sinclair/typebox/value";
 import { Type, Static } from "@sinclair/typebox";
@@ -26,7 +26,6 @@ type t = Static<typeof id>;
 async function router(app: fastify.FastifyInstance, opts: any, done: any) {
   app.decorateRequest("userid", null);
   app.addHook("onRequest", (request, reply, done) => {
-    const uri = { uri: "" };
     if (request.headers["authorization"]) {
       const authHeader = request.headers["authorization"];
       const token = authHeader?.split(" ")[1];
@@ -37,12 +36,38 @@ async function router(app: fastify.FastifyInstance, opts: any, done: any) {
               request.headers.userid = aux.id;
               done();
             } else {
-              reply.code(403).send(uri);
+              reply.code(400).send({
+                error: "Formato de Datos de token Incorrecto",
+                code: 400,
+                mensaje:
+                  "Para mas informacion: https://documenter.getpostman.com/view/21376738/2s9YeD9DWL#",
+              });
             }
           })
-          .catch((error) => console.log("Errorr:", error));
+          .catch((error) => {
+            if (error.message == "jwt expired") {
+              reply.code(403).send({
+                error: "El token expiro.",
+                code: 403,
+                mensaje:
+                  "Para mas informacion: https://documenter.getpostman.com/view/21376738/2s9YeD9DWL#",
+              });
+            } else {
+              reply.code(400).send({
+                error: error,
+                code: 400,
+                mensaje:
+                  "Para mas informacion: https://documenter.getpostman.com/view/21376738/2s9YeD9DWL#",
+              });
+            }
+          });
       } else {
-        reply.code(403).send(uri);
+        reply.code(400).send({
+          error: "Formato de Datos de token Incorrecto",
+          code: 400,
+          mensaje:
+            "Para mas informacion: https://documenter.getpostman.com/view/21376738/2s9YeD9DWL#",
+        });
       }
     } else {
       done();
@@ -63,7 +88,9 @@ async function router(app: fastify.FastifyInstance, opts: any, done: any) {
   app.register(personaRouter, {
     prefix: "/persona",
   });
-
+  app.register(profesorRouter, {
+    prefix: "/profesor",
+  });
   done();
 }
 

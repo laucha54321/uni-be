@@ -2,7 +2,7 @@ import { resourceUsage } from "process";
 import { db } from "../client";
 import { cursoPersona } from "../schema/cursoPersona.schema";
 import crypto from "crypto";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { cursos } from "../schema/curso.schema";
 
 export const cursoPersonaInsert = async (aux: any) => {
@@ -28,4 +28,22 @@ export const cursoPersonaGetPersona = async (id: string) => {
     .leftJoin(cursos, eq(cursos.id, cursoPersona.id_curso))
     .where(eq(cursoPersona.id_persona, id));
   return result;
+};
+
+export const esProfesor = async (idProfesor: string, idCurso: string) => {
+  const result = await db
+    .select({ categoria: cursoPersona.categoria })
+    .from(cursoPersona)
+    .where(
+      and(
+        eq(cursoPersona.id_persona, idProfesor),
+        eq(cursoPersona.id_curso, idCurso),
+        eq(cursoPersona.categoria, "PRO")
+      )
+    );
+  if (result.length > 0) {
+    return true;
+  } else {
+    return false;
+  }
 };
